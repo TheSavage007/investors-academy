@@ -1,0 +1,66 @@
+{
+  "name": "DonationPledge",
+  "type": "object",
+  "properties": {
+    "donor_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Pledged gift amount in USD"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "one_time",
+        "monthly"
+      ],
+      "enumColors": [
+        "green",
+        "blue"
+      ],
+      "default": "one_time"
+    },
+    "note": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged"
+      ],
+      "enumColors": [
+        "yellow",
+        "green"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "donor_name",
+    "amount"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

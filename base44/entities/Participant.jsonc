@@ -1,0 +1,92 @@
+{
+  "name": "Participant",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Name of the person requesting support"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "program": {
+      "type": "string",
+      "enum": [
+        "housing",
+        "youth_outreach",
+        "workforce",
+        "food_pantry",
+        "clothing_closet",
+        "other"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "yellow",
+        "green",
+        "pink",
+        "gray"
+      ],
+      "description": "Program the request is for"
+    },
+    "city": {
+      "type": "string"
+    },
+    "household_size": {
+      "type": "number"
+    },
+    "message": {
+      "type": "string",
+      "description": "What the person is facing and what they need"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "enrolled",
+        "closed"
+      ],
+      "enumColors": [
+        "blue",
+        "yellow",
+        "green",
+        "gray"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "full_name",
+    "program"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
